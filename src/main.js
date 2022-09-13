@@ -31,6 +31,6 @@ async function makeRequest() {
   document.body.appendChild(div2);
   const div3 = document.createElement('div');
   div3.innerHTML = `Section: ${  track.tier}`;
-  document.body.appendChild(div3);
+  document.body.appendChild(div3);jkh
 }
 makeRequest();

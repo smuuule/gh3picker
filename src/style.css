@@ -5,6 +5,7 @@
 html {
   line-height: 1.2; 
   -webkit-text-size-adjust: 100%; 
+  background-color: #222;
 }
 
 html, * {
@@ -18,6 +19,11 @@ body {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  color:#cbd0d0;
+}
+
+div {
+  color:#cbd0d0;
 }
 
 hr {
