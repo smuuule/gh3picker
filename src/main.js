@@ -1,7 +1,12 @@
 let tracks;
+
+const titleDiv = document.createElement('div');
+const artistDiv = document.createElement('div');
+const tierDiv = document.createElement('div');
+
 async function requestApi(url) {
   const response = await fetch(url);
-  return await response.json();
+  return response.json();
 }
 
 async function makeRequest() {
@@ -15,22 +20,54 @@ async function makeRequest() {
     }
   }
   function randomTrack() {
-    const len = tracks.length;
-    const rand = Math.floor(Math.random() * len);
+    /*
+        Better solution?
+    const filtered = tracks.filter((val) => {
+      if (document.querySelector('incBonus').checked) { return val.Tier !== 'Bonus'; }
+      if (document.querySelector('incDownload').checked) { return val.Tier !== 'Downloadable'; }
+      return tracks;
+    });
+    
+        For-loop solution
+    for (let i = 0; i < tracks.length; i += 1) {
+      if (!(document.getElementById('incBonus').checked) && (tracks[i].Tier === 'Bonus')) { console.log(tracks[i].Title); tracks.splice(i, 1); }
+      if (!(document.getElementById('incDownload').checked) && (tracks[i].Tier === 'Downloadable')) { tracks.splice(i, 1); console.log('DOWNLOADABLEEEEE'); }
+    }
+    */
+    if (!(document.getElementById('incBonus').checked)) {
+      tracks = tracks.filter((val) => val.Tier !== 'Bonus');
+    }
+    if (!(document.getElementById('incDownload').checked)) {
+      tracks = tracks.filter((val) => val.Tier !== 'Downloadable');
+    }
+
+    const rand = Math.floor(Math.random() * tracks.length);
 
     return new Track(tracks[rand].Title, tracks[rand].Artist, tracks[rand].Tier);
   }
 
   const track = randomTrack();
   console.log(track);
-  const div1 = document.createElement('div');
-  div1.innerHTML = `Title: ${  track.title}`;
-  document.body.appendChild(div1);
-  const div2 = document.createElement('div');
-  div2.innerHTML = `Artist: ${  track.artist}`;
-  document.body.appendChild(div2);
-  const div3 = document.createElement('div');
-  div3.innerHTML = `Section: ${  track.tier}`;
-  document.body.appendChild(div3);jkh
+  titleDiv.innerHTML = `Title: ${track.title}`;
+  titleDiv.style.cssText = 'background:#000';
+  document.body.appendChild(titleDiv);
+  artistDiv.innerHTML = `Artist: ${track.artist}`;
+  artistDiv.style.cssText = 'background:#000';
+  document.body.appendChild(artistDiv);
+  tierDiv.innerHTML = `Section: ${track.tier}`;
+  tierDiv.style.cssText = 'background:#000';
+  document.body.appendChild(tierDiv);
 }
+
 makeRequest();
+
+const newSong = document.createElement('button');
+newSong.innerHTML = 'hate that song >:(';
+newSong.onclick = function () {
+  titleDiv.remove();
+  artistDiv.remove();
+  tierDiv.remove();
+  makeRequest();
+};
+newSong.style.cssText = 'position: absolute;bottom: 650px;';
+document.body.appendChild(newSong);
