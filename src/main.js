@@ -21,20 +21,6 @@ async function makeRequest() {
     }
   }
   function randomTrack() {
-    /*
-        Better solution?
-    const filtered = tracks.filter((val) => {
-      if (document.querySelector('incBonus').checked) { return val.Tier !== 'Bonus'; }
-      if (document.querySelector('incDownload').checked) { return val.Tier !== 'Downloadable'; }
-      return tracks;
-    });
-    
-        For-loop solution
-    for (let i = 0; i < tracks.length; i += 1) {
-      if (!(document.getElementById('incBonus').checked) && (tracks[i].Tier === 'Bonus')) { console.log(tracks[i].Title); tracks.splice(i, 1); }
-      if (!(document.getElementById('incDownload').checked) && (tracks[i].Tier === 'Downloadable')) { tracks.splice(i, 1); console.log('DOWNLOADABLEEEEE'); }
-    }
-    */
     if (!(document.getElementById('incBonus').checked)) {
       tracks = tracks.filter((val) => val.Tier !== 'Bonus');
     }
