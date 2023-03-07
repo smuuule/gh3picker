@@ -3,6 +3,7 @@ let tracks;
 const titleDiv = document.createElement('div');
 const artistDiv = document.createElement('div');
 const tierDiv = document.createElement('div');
+const buttonDiv = document.createElement('div');
 
 async function requestApi(url) {
   const response = await fetch(url);
@@ -50,24 +51,27 @@ async function makeRequest() {
   console.log(track);
   titleDiv.innerHTML = `Title: ${track.title}`;
   titleDiv.style.cssText = 'background:#000';
-  document.body.appendChild(titleDiv);
+  document.getElementById('content').appendChild(titleDiv);
   artistDiv.innerHTML = `Artist: ${track.artist}`;
   artistDiv.style.cssText = 'background:#000';
-  document.body.appendChild(artistDiv);
+  document.getElementById('content').appendChild(artistDiv);
   tierDiv.innerHTML = `Section: ${track.tier}`;
   tierDiv.style.cssText = 'background:#000';
-  document.body.appendChild(tierDiv);
+  document.getElementById('content').appendChild(tierDiv);
+
+  buttonDiv.id = 'buttonDiv'
+  document.getElementById('content').appendChild(buttonDiv);
 }
 
-makeRequest();
+async function newSong() {
 
-const newSong = document.createElement('button');
-newSong.innerHTML = 'hate that song >:(';
-newSong.onclick = function () {
-  titleDiv.remove();
-  artistDiv.remove();
-  tierDiv.remove();
-  makeRequest();
-};
-newSong.style.cssText = 'position: absolute;bottom: 650px;';
-document.body.appendChild(newSong);
+  await makeRequest();
+
+  const newSong = document.createElement('button');
+  newSong.innerHTML = 'hate that song >:(';
+  newSong.style = 'position: absolute; left: 50%; -ms-transform: translate(-50%); transform: translate(-50%); margin-top: 10px;';
+  newSong.onclick = function () { makeRequest(); };
+  document.getElementById('buttonDiv').appendChild(newSong);
+}
+
+newSong();
